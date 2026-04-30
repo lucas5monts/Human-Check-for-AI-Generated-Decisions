@@ -5,9 +5,7 @@ import time
 from pathlib import Path
 from typing import Dict, Any, List
 
-# Import your existing scorer logic.
-# This lets the queue script stay separate from scorer.py.
-from scorer import ComplianceScoringEngine, load_json_file
+from scorer import ComplianceScoringEngine, load_json_file, result_to_dict
 
 
 # ------------------------------------------------------------
@@ -38,29 +36,6 @@ def ensure_directories() -> None:
     """
     for directory in [INCOMING_DIR, PROCESSED_DIR, FAILED_DIR, RESULTS_DIR]:
         directory.mkdir(parents=True, exist_ok=True)
-
-
-def result_to_dict(result) -> Dict[str, Any]:
-    """
-    Convert the scorer result object into a dictionary that can be:
-    - saved as JSON
-    - written into the CSV summary
-    """
-    return {
-        "packet_id": result.packet_id,
-        "applicant_id": result.applicant_id,
-        "risk_score": result.risk_score,
-        "risk_level": result.risk_level,
-        "human_review_required": result.human_review_required,
-        "triggered_rules": [
-            {
-                "name": rule.name,
-                "points": rule.points,
-                "reason": rule.reason
-            }
-            for rule in result.triggered_rules
-        ]
-    }
 
 
 def build_summary_row(source_file: Path, result_dict: Dict[str, Any]) -> Dict[str, Any]:

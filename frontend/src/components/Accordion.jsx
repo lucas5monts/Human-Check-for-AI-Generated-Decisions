@@ -1,61 +1,73 @@
 import React, { useState } from 'react';
 
-const styles = {
-  redColor: {
-    backgroundColor: 'red'
-  },
-  yellowColor: {
-    backgroundColor: 'yellow'
-  },
-  greenColor: {
-    backgroundColor: 'green'
-  },
-};
+const RISK_LEVELS = new Set(["green", "yellow", "red"]);
 
-function getLevelStyle(level) {
-  switch (level?.toLowerCase()) {
-    case "green":  return styles.greenColor;
-    case "yellow": return styles.yellowColor;
-    case "red":    return styles.redColor;
-    default:       return {};
-  }
+function getRiskLevel(level) {
+  const normalizedLevel = level?.toLowerCase();
+  return RISK_LEVELS.has(normalizedLevel) ? normalizedLevel : "unknown";
 }
 
-const Accordion = ({ data }) => {
+const Accordion = ({ applicant }) => {
   const [isActive, setIsActive] = useState(false);
+  const riskLevel = getRiskLevel(applicant?.risk_level);
+  const triggeredRules = applicant?.triggered_rules ?? [];
+  const reviewLabel = applicant?.human_review_required ? "Review required" : "Auto-clear";
 
   return (
     <div className="accordion-item">
-      <div className="accordion-title" onClick={() => setIsActive(!isActive)}>
+      <button
+        className="accordion-title"
+        type="button"
+        aria-expanded={isActive}
+        onClick={() => setIsActive((currentValue) => !currentValue)}
+      >
         <div className="title-right">
-          <div></div>
-          <div>Applicant: {data?.applicant_id}</div>
-        </div>
-        <div className='title-left'>
-          <div className="accordion-score">{data?.risk_score}%</div>
-          <div className="accordion-level" style={getLevelStyle(data?.risk_level)}>
-            
+          <span className="applicant-avatar">{applicant?.applicant_id?.slice(0, 2) ?? "NA"}</span>
+          <div>
+            <span className="applicant-name">Applicant {applicant?.applicant_id}</span>
+            <span className="packet-meta">{applicant?.packet_id}</span>
           </div>
         </div>
-      </div>
-        {isActive && <div className="accordion-content">
-          <ul>
-            <li><span>PacketID:</span> <span>{data?.packet_id}</span></li>
-            <li>Triggered Rules:</li>
-            <ul>
-              {data?.triggered_rules.map((item, index) => (
-                <li key={index}>
+        <div className="title-left">
+          <span className={`review-pill review-pill--${riskLevel}`}>{riskLevel}</span>
+          <span className="accordion-score">{applicant?.risk_score}%</span>
+        </div>
+      </button>
+
+      {isActive && (
+        <div className="accordion-content">
+          <div className="detail-grid">
+            <div>
+              <span>Packet ID</span>
+              <strong>{applicant?.packet_id}</strong>
+            </div>
+            <div>
+              <span>Status</span>
+              <strong>{reviewLabel}</strong>
+            </div>
+            <div>
+              <span>Rules triggered</span>
+              <strong>{triggeredRules.length}</strong>
+            </div>
+          </div>
+
+          <div className="rule-list" aria-label="Triggered rules">
+            {triggeredRules.length > 0 ? (
+              triggeredRules.map((rule) => (
+                <div className="rule-row" key={rule.name}>
                   <div>
-                    <span>{item.name}</span>
-                    <div className="sub-field">{item.reason}</div>
+                    <span>{rule.name}</span>
+                    <div className="sub-field">{rule.reason}</div>
                   </div>
-                  <span>{item.points}</span>
-                </li>
-              ))}
-            </ul>
-          </ul>
-          
-        </div>}
+                  <span>{rule.points}</span>
+                </div>
+              ))
+            ) : (
+              <p className="empty-state">No rules triggered.</p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,26 +1,6 @@
 ---
-import Applicant from "../components/Applicant.jsx";
-import Header from "../components/Header.jsx";
+import Dashboard from "../components/Dashboard.jsx";
 import "../styles/styles.css";
-
-let data = null;
-
-try {
-  const response = await fetch(
-    "https://secondlook.venykrid.com/api/test-data",
-    {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-      },
-    },
-  );
-
-  if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-  data = await response.json();
-} catch (error) {
-  console.error("Request failed:", error);
-}
 ---
 
 <html lang="en">
@@ -31,7 +11,6 @@ try {
     <title>Second Look</title>
   </head>
   <body>
-    <Header client:load />
-    <Applicant client:load data={data} />
+    <Dashboard client:load />
   </body>
 </html>

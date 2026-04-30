@@ -1,13 +1,15 @@
-# Main API source
 from pathlib import Path
+from typing import List, Optional
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
-from typing import Optional, List, Dict, Any
-from scorer import *
+
+from scorer import ComplianceScoringEngine, RiskEvaluationResult, load_json_file, result_to_dict
 
 engine = ComplianceScoringEngine()
+BASE_DIR = Path(__file__).resolve().parent
+INCOMING_DIR = BASE_DIR / "incoming"
 
 app = FastAPI(
     title="Resume Audit API",
@@ -16,8 +18,7 @@ app = FastAPI(
     redoc_url="/api/redoc"
 )
 
-# Origin allow list for API calls
-origins = [
+ALLOWED_ORIGINS = [
     "http://localhost:4321",
     "http://127.0.0.1:4321",
     "http://localhost:80",
@@ -26,13 +27,11 @@ origins = [
 ]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# --- Pydantic Models based on scorer.py safe_get paths ---
 
 class DecisionPacket(BaseModel):
     final_recommendation: Optional[str] = "unknown"
@@ -72,53 +71,27 @@ async def root():
 
 @app.post("/api/audit", response_model=RiskEvaluationResult)
 async def evaluate_resume_packet(payload: AuditPayload):
-    """
-    Receives an applicant packet from Astro, evaluates it through the scoring engine,
-    and returns the risk evaluation result.
-    """
-    # Dump the model
     packet_dict = payload.model_dump()
-    
-    # Run the engine
-    result = engine.evaluate_packet(packet_dict)
-    
-    # Return the dataclass directly; FastAPI will convert it to JSON
-    return result
+    return engine.evaluate_packet(packet_dict)
 
-INCOMING_DIR = Path("incoming")
 @app.get("/api/test-data")
 async def fetch_in_memory_test_data():
-    """
-    Reads all JSON files in incoming/, scores them in memory, 
-    and returns the results without mutating the file system.
-    """
     if not INCOMING_DIR.exists():
         return {"status": "success", "count": 0, "data": []}
 
-    # Find all JSON files
     json_files = sorted(INCOMING_DIR.glob("*.json"))
     results = []
 
     for file_path in json_files:
         try:
-            # 1. Load the raw JSON from disk
-            packet = load_json_file(str(file_path))
-            
-            # 2. Score it in memory
+            packet = load_json_file(file_path)
             evaluation = engine.evaluate_packet(packet)
-            
-            # 3. Attach the filename so the frontend knows which is which
-            # We convert the dataclass to a dict so we can inject the filename
-            evaluation_dict = evaluation.__dict__.copy()
+            evaluation_dict = result_to_dict(evaluation)
             evaluation_dict["source_file"] = file_path.name
-            
             results.append(evaluation_dict)
-            
         except Exception as e:
-            # If one file is corrupted, print it but don't crash the whole API
             print(f"Skipping {file_path.name} due to error: {e}")
 
-    # Return the aggregated data
     return {
         "status": "success",
         "count": len(results),

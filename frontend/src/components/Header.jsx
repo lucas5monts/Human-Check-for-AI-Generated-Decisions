@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { apiUrl } from '../lib/api';
 
 const Header = ({ onApplicantAdded }) => {
   const [isUploading, setIsUploading] = useState(false);
@@ -9,11 +10,9 @@ const Header = ({ onApplicantAdded }) => {
 
     setIsUploading(true);
     try {
-      // Read the uploaded file text (assuming it's formatted as JSON)
       const fileText = await file.text();
-      
-      // Send the JSON payload off to the endpoint
-      const response = await fetch('/api/audit', {
+
+      const response = await fetch(apiUrl('/api/audit'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,36 +25,37 @@ const Header = ({ onApplicantAdded }) => {
       }
 
       const newApplicant = await response.json();
-      
-      // Pass the new applicant up to the parent component to update the UI
-      if (onApplicantAdded) {
-        onApplicantAdded(newApplicant);
-      }
+      onApplicantAdded?.(newApplicant);
     } catch (error) {
       console.error("Failed to upload JSON:", error);
       alert("There was an error processing the upload.");
     } finally {
       setIsUploading(false);
-      // Reset the file input so the same file could be selected again
       event.target.value = '';
     }
   };
 
   return (
-    <header className="page-header" style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem' }}>
-      <div>
-        <label htmlFor="json-upload" style={{ cursor: 'pointer', padding: '8px 16px', backgroundColor: '#007bff', color: '#fff', borderRadius: '4px' }}>
-          {isUploading ? 'Uploading...' : 'Upload JSON'}
-        </label>
-        <input
-          id="json-upload"
-          type="file"
-          accept=".json"
-          onChange={handleFileUpload}
-          style={{ display: 'none' }}
-          disabled={isUploading}
-        />
+    <header className="page-header">
+      <div className="brand-lockup">
+        <span className="brand-mark">SL</span>
+        <div>
+          <strong>Second Look</strong>
+          <span>ATS audit console</span>
+        </div>
       </div>
+
+      <label className="upload-button" htmlFor="json-upload">
+        {isUploading ? 'Uploading...' : 'Upload packet'}
+      </label>
+      <input
+        id="json-upload"
+        className="file-input"
+        type="file"
+        accept=".json"
+        onChange={handleFileUpload}
+        disabled={isUploading}
+      />
     </header>
   );
 };
