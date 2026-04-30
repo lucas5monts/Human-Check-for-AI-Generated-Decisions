@@ -1,8 +1,8 @@
 # Second Look 
 
-Second Look is a small full-stack app for reviewing AI-assisted hiring or ATS decision packets.
+Second Look is a small full-stack app for reviewing AI-assisted hiring or ATS decision packets
 
-It does not decide whether an applicant should be hired. It scores how risky it is to trust an automated decision without human review.
+It does not decide whether an applicant should be hired. It scores how risky it is to trust an automated decision without human review
 
 ## What It Does
 
