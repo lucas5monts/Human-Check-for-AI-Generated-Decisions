@@ -47,8 +47,38 @@ function Dashboard() {
 
   return (
     <div className="app-shell">
-      <Header onApplicantAdded={addApplicant} />
-      <Applicant applicants={applicants} status={status} />
+      <aside className="side-rail" aria-label="Primary navigation">
+        <div className="rail-brand">
+          <div className="rail-logo">SL</div>
+          <div>
+            <strong>Second Look</strong>
+            <span>Audit OS</span>
+          </div>
+        </div>
+        <nav className="rail-nav">
+          <span className="rail-section">Workspace</span>
+          <a className="rail-link rail-link--active" href="/">
+            <span className="rail-icon">01</span>
+            <span>Review queue</span>
+          </a>
+          <a className="rail-link" href={apiUrl("/api/docs")}>
+            <span className="rail-icon">02</span>
+            <span>Scoring API</span>
+          </a>
+          <a className="rail-link" href={apiUrl("/api/test-data")}>
+            <span className="rail-icon">03</span>
+            <span>Test data</span>
+          </a>
+        </nav>
+        <div className="rail-footer">
+          <span>Rule engine</span>
+          <strong>v1 review model</strong>
+        </div>
+      </aside>
+      <div className="workspace">
+        <Header onApplicantAdded={addApplicant} />
+        <Applicant applicants={applicants} status={status} />
+      </div>
     </div>
   );
 }

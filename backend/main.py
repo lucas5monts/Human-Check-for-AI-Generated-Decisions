@@ -19,15 +19,13 @@ app = FastAPI(
 )
 
 ALLOWED_ORIGINS = [
-    "http://localhost:4321",
-    "http://127.0.0.1:4321",
-    "http://localhost:80",
-    "http://127.0.0.1:80",
     "https://secondlook.venykrid.com"
 ]
+LOCAL_ORIGIN_REGEX = r"^http://(localhost|127\.0\.0\.1):\d+$"
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
+    allow_origin_regex=LOCAL_ORIGIN_REGEX,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

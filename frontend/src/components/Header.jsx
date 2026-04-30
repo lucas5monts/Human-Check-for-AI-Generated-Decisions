@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { apiUrl } from '../lib/api';
 
+function createClientId() {
+  return `uploaded-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
 const Header = ({ onApplicantAdded }) => {
   const [isUploading, setIsUploading] = useState(false);
 
@@ -25,7 +29,7 @@ const Header = ({ onApplicantAdded }) => {
       }
 
       const newApplicant = await response.json();
-      onApplicantAdded?.(newApplicant);
+      onApplicantAdded?.({ ...newApplicant, client_id: createClientId() });
     } catch (error) {
       console.error("Failed to upload JSON:", error);
       alert("There was an error processing the upload.");
@@ -38,24 +42,27 @@ const Header = ({ onApplicantAdded }) => {
   return (
     <header className="page-header">
       <div className="brand-lockup">
-        <span className="brand-mark">SL</span>
         <div>
-          <strong>Second Look</strong>
-          <span>ATS audit console</span>
+          <strong>Decision review</strong>
+          <span>Second Look ATS audit console</span>
         </div>
       </div>
 
-      <label className="upload-button" htmlFor="json-upload">
-        {isUploading ? 'Uploading...' : 'Upload packet'}
-      </label>
-      <input
-        id="json-upload"
-        className="file-input"
-        type="file"
-        accept=".json"
-        onChange={handleFileUpload}
-        disabled={isUploading}
-      />
+      <div className="header-actions">
+        <span className="date-pill">Today</span>
+        <span className="sync-pill">Live scoring</span>
+        <label className="upload-button" htmlFor="json-upload">
+          {isUploading ? 'Uploading...' : 'Upload packet'}
+        </label>
+        <input
+          id="json-upload"
+          className="file-input"
+          type="file"
+          accept=".json"
+          onChange={handleFileUpload}
+          disabled={isUploading}
+        />
+      </div>
     </header>
   );
 };

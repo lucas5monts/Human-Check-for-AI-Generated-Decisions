@@ -12,9 +12,10 @@ const Accordion = ({ applicant }) => {
   const riskLevel = getRiskLevel(applicant?.risk_level);
   const triggeredRules = applicant?.triggered_rules ?? [];
   const reviewLabel = applicant?.human_review_required ? "Review required" : "Auto-clear";
+  const riskScore = Number(applicant?.risk_score ?? 0);
 
   return (
-    <div className="accordion-item">
+    <div className={`accordion-item accordion-item--${riskLevel}`}>
       <button
         className="accordion-title"
         type="button"
@@ -30,12 +31,17 @@ const Accordion = ({ applicant }) => {
         </div>
         <div className="title-left">
           <span className={`review-pill review-pill--${riskLevel}`}>{riskLevel}</span>
-          <span className="accordion-score">{applicant?.risk_score}%</span>
+          <span className="accordion-score">{riskScore}%</span>
+          <span className="row-chevron" aria-hidden="true">{isActive ? "-" : "+"}</span>
         </div>
       </button>
 
       {isActive && (
         <div className="accordion-content">
+          <div className="risk-meter" aria-label={`${riskScore}% risk score`}>
+            <span style={{ width: `${riskScore}%` }} />
+          </div>
+
           <div className="detail-grid">
             <div>
               <span>Packet ID</span>

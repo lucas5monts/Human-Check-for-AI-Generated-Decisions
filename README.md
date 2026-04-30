@@ -10,7 +10,7 @@ It does not decide whether an applicant should be hired. It scores how risky it 
 - Scores each packet with a rule-based compliance engine
 - Flags missing explanations, weak evidence, keyword overreliance, low data quality, and transparency issues
 - Returns a `green`, `yellow`, or `red` risk level
-- Displays results in a modern review dashboard
+- Displays results in a modern review dashboard with search, filtering, and sorting
 
 ## Stack
 
@@ -30,6 +30,7 @@ backend/
   requirements.txt
 
 frontend/
+  .env.example           local API URL example
   src/components/        React dashboard components
   src/lib/api.js         frontend API URL helper
   src/pages/index.astro
@@ -76,6 +77,14 @@ http://localhost:4321
 ```
 
 If the frontend starts on another port, use the URL printed by Astro.
+
+## Tests
+
+Run backend tests from `backend/`:
+
+```bash
+python -m unittest discover
+```
 
 ## API Routes
 
@@ -141,7 +150,7 @@ docker run -p 80:80 second-look-frontend
 - The scorer is rule-based, not machine-learning based.
 - Input packets must be structured JSON.
 - The app estimates review risk; it does not validate the correctness of the hiring decision.
-- Set `PUBLIC_API_BASE_URL` when the frontend should call a specific backend URL.
+- Use `frontend/.env.example` as the starting point for local frontend API configuration.
 
 ## License
 
