@@ -1,0 +1,28 @@
+{
+  "packet_id": "PKT-R03",
+  "applicant_id": "R003",
+  "decision_packet": {
+    "final_recommendation": "reject",
+    "reason_codes": ["low_match_score"],
+    "explanation_present": true,
+    "documentation_present": true
+  },
+  "applicant_data": {
+    "resume_parse_confidence": 0.87,
+    "missing_fields": [],
+    "data_completeness_score": 0.90
+  },
+  "keyword_assessment": {
+    "keyword_score": 0.55,
+    "overreliance_risk": true,
+    "semantic_match_available": true,
+    "keyword_rules_transparent": true,
+    "possible_proxy_terms_detected": true
+  },
+  "oversight_features": {
+    "decision_observability_score": 0.84,
+    "contradiction_flag": false,
+    "insufficient_explanation_flag": false,
+    "vendor_transparency_limited": false
+  }
+}

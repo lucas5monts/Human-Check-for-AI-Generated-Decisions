@@ -1,0 +1,28 @@
+{
+  "packet_id": "PKT-Y04",
+  "applicant_id": "Y004",
+  "decision_packet": {
+    "final_recommendation": "accept",
+    "reason_codes": ["partial_match"],
+    "explanation_present": true,
+    "documentation_present": true
+  },
+  "applicant_data": {
+    "resume_parse_confidence": 0.86,
+    "missing_fields": ["portfolio_link", "certification_notes", "volunteer_history"],
+    "data_completeness_score": 0.88
+  },
+  "keyword_assessment": {
+    "keyword_score": 0.62,
+    "overreliance_risk": false,
+    "semantic_match_available": true,
+    "keyword_rules_transparent": false,
+    "possible_proxy_terms_detected": false
+  },
+  "oversight_features": {
+    "decision_observability_score": 0.80,
+    "contradiction_flag": false,
+    "insufficient_explanation_flag": false,
+    "vendor_transparency_limited": false
+  }
+}

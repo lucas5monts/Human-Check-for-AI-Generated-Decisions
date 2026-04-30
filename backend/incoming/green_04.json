@@ -1,0 +1,28 @@
+{
+  "packet_id": "PKT-G04",
+  "applicant_id": "G004",
+  "decision_packet": {
+    "final_recommendation": "accept",
+    "reason_codes": ["qualified"],
+    "explanation_present": true,
+    "documentation_present": true
+  },
+  "applicant_data": {
+    "resume_parse_confidence": 0.92,
+    "missing_fields": [],
+    "data_completeness_score": 0.91
+  },
+  "keyword_assessment": {
+    "keyword_score": 0.74,
+    "overreliance_risk": false,
+    "semantic_match_available": false,
+    "keyword_rules_transparent": true,
+    "possible_proxy_terms_detected": false
+  },
+  "oversight_features": {
+    "decision_observability_score": 0.84,
+    "contradiction_flag": false,
+    "insufficient_explanation_flag": false,
+    "vendor_transparency_limited": false
+  }
+}

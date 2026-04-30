@@ -1,0 +1,28 @@
+{
+  "packet_id": "PKT-G03",
+  "applicant_id": "G003",
+  "decision_packet": {
+    "final_recommendation": "accept",
+    "reason_codes": ["qualified"],
+    "explanation_present": true,
+    "documentation_present": true
+  },
+  "applicant_data": {
+    "resume_parse_confidence": 0.88,
+    "missing_fields": [],
+    "data_completeness_score": 0.79
+  },
+  "keyword_assessment": {
+    "keyword_score": 0.78,
+    "overreliance_risk": false,
+    "semantic_match_available": true,
+    "keyword_rules_transparent": true,
+    "possible_proxy_terms_detected": false
+  },
+  "oversight_features": {
+    "decision_observability_score": 0.82,
+    "contradiction_flag": false,
+    "insufficient_explanation_flag": false,
+    "vendor_transparency_limited": false
+  }
+}

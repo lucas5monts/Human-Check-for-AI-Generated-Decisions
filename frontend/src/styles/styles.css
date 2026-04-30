@@ -1,0 +1,141 @@
+* {
+  list-style-type: none;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Card */
+.Card {
+  border: 1px solid #b8dff0;
+  border-radius: 12px;
+  padding: 1.1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  background-color: #f5faff;
+  max-width: 620px;
+  margin: 2rem auto;
+  height: 720px;
+  overflow-y: auto;
+}
+
+.header {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a4f63;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #b8dff0;
+  letter-spacing: 0.5px;
+}
+
+/* Scrollbar */
+.Card::-webkit-scrollbar {
+  width: 6px;
+}
+.Card::-webkit-scrollbar-track {
+  background: #f0f4f8;
+}
+.Card::-webkit-scrollbar-thumb {
+  background-color: #21aeca;
+  border-radius: 10px;
+}
+
+/* Lists */
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 10px;
+  width: 100%;
+  font-size: 0.875rem;
+  color: #2d3748;
+  border-radius: 4px;
+}
+
+li:nth-child(odd) {
+  background-color: #ddf0f7;
+}
+
+li:nth-child(even) {
+  background-color: #eef7fb;
+}
+
+/* Accordion */
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.accordion-item {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #b8dff0;
+}
+
+.accordion-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background: linear-gradient(135deg, #d0eaf7, #b8dff0);
+  padding: 0.85rem 1rem;
+  transition: background 0.2s ease;
+}
+
+.accordion-title:hover {
+  background: linear-gradient(135deg, #b8dff0, #21aeca);
+  color: white;
+}
+
+.accordion-content {
+  background-color: #eef7fb;
+  padding: 0.85rem 1rem;
+  width: 93%;
+  margin: 0 auto 8px;
+  border-radius: 0 0 8px 8px;
+  font-size: 0.875rem;
+  color: #2d3748;
+}
+
+/* Score & Level badges */
+.accordion-score {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #1a6f8a;
+}
+
+.accordion-level {
+  min-width: 28px;
+  min-height: 20px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  border: 1.5px solid #21aeca;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: #1a6f8a;
+  background-color: #fff;
+}
+
+/* Title sections */
+.title-right,
+.title-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #1a4f63;
+}
+
+.sub-field {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 2px;
+}

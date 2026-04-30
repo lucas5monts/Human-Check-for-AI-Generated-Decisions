@@ -1,0 +1,36 @@
+{
+  "packet_id": "PKT-1007",
+  "source_system": "ThirdPartyATS-X",
+  "domain": "hiring",
+  "applicant_id": "C102",
+  "decision_packet": {
+    "final_recommendation": "reject",
+    "reason_codes": ["missing_required_skills", "low_match_score"],
+    "explanation_text": "Applicant did not meet required skill criteria.",
+    "explanation_present": true,
+    "documentation_present": true
+  },
+  "applicant_data": {
+    "resume_parse_confidence": 0.68,
+    "missing_fields": ["employment_gap_reason"],
+    "data_completeness_score": 0.74,
+    "file_format": "pdf"
+  },
+  "keyword_assessment": {
+    "keyword_score": 0.35,
+    "keywords_matched": ["python", "sql"],
+    "keywords_missing": ["pandas", "machine learning"],
+    "match_count": 2,
+    "total_keywords_considered": 4,
+    "possible_proxy_terms_detected": false,
+    "overreliance_risk": true,
+    "semantic_match_available": false,
+    "keyword_rules_transparent": false
+  },
+  "oversight_features": {
+    "decision_observability_score": 0.45,
+    "contradiction_flag": false,
+    "insufficient_explanation_flag": true,
+    "vendor_transparency_limited": true
+  }
+}

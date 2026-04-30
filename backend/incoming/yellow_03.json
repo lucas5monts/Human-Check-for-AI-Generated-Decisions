@@ -1,0 +1,28 @@
+{
+  "packet_id": "PKT-Y03",
+  "applicant_id": "Y003",
+  "decision_packet": {
+    "final_recommendation": "accept",
+    "reason_codes": ["partial_match"],
+    "explanation_present": true,
+    "documentation_present": true
+  },
+  "applicant_data": {
+    "resume_parse_confidence": 0.89,
+    "missing_fields": [],
+    "data_completeness_score": 0.90
+  },
+  "keyword_assessment": {
+    "keyword_score": 0.68,
+    "overreliance_risk": false,
+    "semantic_match_available": true,
+    "keyword_rules_transparent": true,
+    "possible_proxy_terms_detected": false
+  },
+  "oversight_features": {
+    "decision_observability_score": 0.83,
+    "contradiction_flag": false,
+    "insufficient_explanation_flag": true,
+    "vendor_transparency_limited": true
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "packet_id": "PKT-R04",
+  "applicant_id": "R004",
+  "decision_packet": {
+    "final_recommendation": "reject",
+    "reason_codes": [],
+    "explanation_present": false,
+    "documentation_present": false
+  },
+  "applicant_data": {
+    "resume_parse_confidence": 0.50,
+    "missing_fields": ["gap", "skills", "education"],
+    "data_completeness_score": 0.60
+  },
+  "keyword_assessment": {
+    "keyword_score": 0.20,
+    "overreliance_risk": true,
+    "semantic_match_available": false,
+    "keyword_rules_transparent": false,
+    "possible_proxy_terms_detected": true
+  },
+  "oversight_features": {
+    "decision_observability_score": 0.30,
+    "contradiction_flag": true,
+    "insufficient_explanation_flag": true,
+    "vendor_transparency_limited": true
+  }
+}
